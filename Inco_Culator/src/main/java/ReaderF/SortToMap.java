@@ -1,16 +1,17 @@
 package ReaderF;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static ReaderF.GetAvgIncomeForCountryGender.getAvgIncomeForCountryGender;
-
-
+@Component("getAvgByList")
 class GetAvgByList {
-    static Map<String, String> mapEachCountryGender = new TreeMap<>();
+    Map<String, String> mapEachCountryGender = new TreeMap<>();
 
-    static void sortToMap(ArrayList<Personal> personalList) {
+    void sortToMap(ArrayList<Personal> personalList, ApplicationContext context) {
 
         personalList.forEach(personal -> {
             String key = personal.country + " - " + personal.gender;
@@ -23,7 +24,7 @@ class GetAvgByList {
             }
         });
 
-        getAvgIncomeForCountryGender(mapEachCountryGender);
+        context.getBean(GetAvgIncomeForCountryGender.class).getAvgIncomeForCountryGender(mapEachCountryGender,context);
 
     }
 }

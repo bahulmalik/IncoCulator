@@ -1,5 +1,7 @@
 package ReaderF;
 
+import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -7,14 +9,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+@Component("getFileOutput")
+ class GetFileOutput {
+     Set<String> countrySet = new TreeSet<>();
+     PrintWriter pw;
 
-public class GetFileOutput {
-    static Set<String> countrySet = new TreeSet<>();
-    static PrintWriter pw;
-
-    static void getFileOutput(Map<String, String> mapStoreResult) {
+     void getFileOutput(Map<String, String> mapStoreResult) {
         try {
-            pw = new PrintWriter(new File("C:\\Users\\bahul.malik\\Downloads\\project\\test.csv"));
+            pw = new PrintWriter(new File("C:\\Users\\bahul.malik\\IdeaProjects\\Inco_Culator\\Resources\\test.csv"));
 
             StringBuffer csvHeader = new StringBuffer("");
             StringBuffer csvData = new StringBuffer("");
