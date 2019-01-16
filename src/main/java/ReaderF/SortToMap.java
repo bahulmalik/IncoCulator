@@ -1,6 +1,5 @@
 package ReaderF;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,20 +10,20 @@ import java.util.TreeMap;
 class GetAvgByList {
     Map<String, String> mapEachCountryGender = new TreeMap<>();
 
-    void sortToMap(ArrayList<Personal> personalList, ApplicationContext context) {
+    Map<String,String> sortToMap(ArrayList<Personal> personalList) {
 
         personalList.forEach(personal -> {
-            String key = personal.country + " - " + personal.gender;
+            String key = personal.getCountry() + " - " + personal.getGender();
 
             if (mapEachCountryGender.containsKey(key)) {
-                mapEachCountryGender.put(key, mapEachCountryGender.get(key) + "," + personal.currencyType.getUSDConverted(personal.avgIncome));
+                mapEachCountryGender.put(key, mapEachCountryGender.get(key) + "," + personal.getCurrencyType().getUSDConverted(personal.getAvgIncome()));
 
             } else {
-                mapEachCountryGender.put(key, personal.currencyType.getUSDConverted(personal.avgIncome).toString());
+                mapEachCountryGender.put(key, personal.getCurrencyType().getUSDConverted(personal.getAvgIncome()).toString());
             }
         });
 
-        context.getBean(GetAvgIncomeForCountryGender.class).getAvgIncomeForCountryGender(mapEachCountryGender,context);
 
+return mapEachCountryGender;
     }
 }

@@ -1,6 +1,5 @@
 package ReaderF;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -10,7 +9,7 @@ import java.util.TreeMap;
 class GetAvgIncomeForCountryGender {
     Map<String, String> mapAvgIncome = new TreeMap<>();
 
-    void getAvgIncomeForCountryGender(Map<String, String> mapEachCountryGender, ApplicationContext context) {
+    Map<String,String> getAvgIncomeForCountryGender(Map<String, String> mapEachCountryGender) {
 
         mapEachCountryGender.forEach((s, s2) -> {
             Double averageForEach = 0d;
@@ -29,6 +28,7 @@ class GetAvgIncomeForCountryGender {
             mapAvgIncome.put(s, value);
         });
 
-        context.getBean(GetFileOutput.class).getFileOutput(mapAvgIncome);
+
+        return mapAvgIncome;
     }
 }

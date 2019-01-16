@@ -1,24 +1,24 @@
 package ReaderF;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
 @Component("readFiler")
-public class ReadFiler {
-    public void readFile(String fileName, ApplicationContext context) {
+class ReadFiler {
+    ArrayList<Personal> readFile(String fileName) {
 
 
         ArrayList<Personal> personalList = new ArrayList<>();
 
-        try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
+        try {
 
-
+            Stream<String> stream = new BufferedReader(new InputStreamReader(ClassLoader
+                                                                                .getSystemResourceAsStream(fileName)))
+                                                                                    .lines();
             stream
                     .map(i -> i.trim())
                     .filter(i -> !i.isEmpty())
@@ -31,19 +31,23 @@ public class ReadFiler {
                         CurrencyType currencyType = CurrencyType.valueOf(split[3]);
                         Double avgIncome = Double.parseDouble(split[4]);
 
-                        personalList.add(new Personal(country, city, gender, currencyType, avgIncome));
+                        personalList.add(new Personal.PersonalBuilder()
+                                .country(country)
+                                .city(city)
+                                .gender(gender)
+                                .avgIncome(avgIncome)
+                                .currencyType(currencyType)
+                                .build());
                     });
 
-            context.getBean(GetAvgByList.class).sortToMap(personalList,context);
+            return personalList;
 
 
-        } catch (IOException exception) {
-            exception.printStackTrace();
         } catch (NumberFormatException ex) {
             ex.printStackTrace();
         }
 
-
+        return personalList;
     }
 
 
