@@ -10,7 +10,7 @@ public class Personal {
     private CurrencyType currencyType;
     private Double avgIncome;
 
-    @java.beans.ConstructorProperties({"country", "city", "gender", "currencyType", "avgIncome"})
+
     Personal(String country, String city, char gender, CurrencyType currencyType, Double avgIncome) {
         this.country = country;
         this.city = city;
@@ -34,22 +34,33 @@ public class Personal {
         }
 
         public PersonalBuilder country(String country) {
-
+            if (country == null) {
+                country = "Other";
+            }
             this.country = country;
             return this;
         }
 
         public PersonalBuilder city(String city) {
+            if (city == null) {
+                city = "DontKnow";
+            }
             this.city = city;
             return this;
         }
 
         public PersonalBuilder gender(char gender) {
+            if (gender != 'M' && gender != 'F') {
+                gender = 'K';
+            }
             this.gender = gender;
             return this;
         }
 
         public PersonalBuilder currencyType(CurrencyType currencyType) {
+            if (currencyType == null) {
+                currencyType = CurrencyType.Other;
+            }
             this.currencyType = currencyType;
             return this;
         }

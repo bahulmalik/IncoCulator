@@ -6,7 +6,17 @@
     <groupId>com.Bahul</groupId>
     <artifactId>IncoCulator</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <properties>
+        <RESOURCE_PATH>${project.basedir}/src/main/resources</RESOURCE_PATH>
+
+    </properties>
     <build>
+        <resources>
+            <resource>
+                <directory>${RESOURCE_PATH}</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -38,7 +48,6 @@
             <version>1.18.0</version>
             <scope>provided</scope>
         </dependency>
-
 
     </dependencies>
 
